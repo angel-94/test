@@ -1,0 +1,38 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.5'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'com.google.cloud.artifactregistry.gradle-plugin' version '2.2.0'
+}
+
+group = 'com.infosel'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+	maven {
+		url "artifactregistry://us-central1-maven.pkg.dev/fabrica-digital-278818/demo"
+//		credentials {
+//			username = ""
+//			password = ""
+//		}
+	}
+	maven {
+		url "artifactregistry://us-central1-maven.pkg.dev/fabrica-digital-278818/md2-avro"
+	}
+	maven {
+		url "https://packages.confluent.io/maven/"
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'com.infosel:md2:1.0.0'
+	implementation 'com.infosel.daas:ds-avro-format-lib:+'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
